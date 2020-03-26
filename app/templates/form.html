@@ -1,0 +1,60 @@
+{% extends "base.html" %}
+
+{% block content %}
+
+<div class="row">
+    <div class="col-sm-12 col-md-6">
+        <div class="card">
+            <div class="card-body">
+                <h5 class="card-title">INSERT A BOOK</h5>
+                <form action="/book/add" method="POST" enctype="multipart/form-data">
+                    <div class="form-group">
+                        <label for="title">Title Book</label>
+                        <input type="text" class="form-control" id="title" name="title">
+                    </div>
+                    <div class="form-group">
+                        <label for="cover">Cover Book</label>
+                        <input type="file" class="form-control" id="cover" name="cover">
+                    </div>
+                    
+                    <button type="submit" class="btn btn-primary">Submit</button>
+                </form>
+            </div>
+        </div>
+    </div>
+    <div class="col-sm-12 col-md-6">
+        <div class="card">
+            <div class="card-body">
+                <h5 class="card-title">INSERT A CHAPTER OF BOOK.</h5>
+                <form action="/chapter/add" method="POST"  enctype="multipart/form-data">
+                    <div class="form-group">
+                        <label for="choose_book">Choose a book</label>
+                        <select class="form-control" name="choose_book" id="choose_book">
+                            {% for b in books %}
+                                <option value="{{ b.id }}">{{ b.title }}</option>
+                            {% else %}
+                                <option value="">-- Insert a book --</option>
+                            {% endfor %}
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label for="title">Title Chapter</label>
+                        <input type="text" class="form-control" id="title" name="title">
+                    </div>
+                    <div class="form-group">
+                        <label for="pdf_ori">PDF Original</label>
+                        <input type="file" class="form-control" id="pdf_ori" name="pdf_ori">
+                    </div>
+                    <div class="form-group">
+                        <label for="pdf_clean">PDF Cleaned</label>
+                        <input type="file" class="form-control" id="pdf_clean" name="pdf_clean">
+                    </div>
+                    
+                    <button type="submit" class="btn btn-primary">Submit</button>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+{% endblock %}

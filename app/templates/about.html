@@ -1,0 +1,42 @@
+{% extends "base.html" %}
+
+{% block content %}
+
+<div class="container">
+    <div class="jumbotron">
+        <h1 class="display-4">About</h1>
+        <p class="lead">
+            Program untuk memenuhi skripsi yang berjudul <strong>"Implementasi Algoritma <i>Textrank</i> dalam <i>Automatic Text Summarization</i> dan <i>Extraction Keyword</i> pada Buku Digital Berbahasa Indonesia untuk Meningkatkan Kemampuan Kognitif Pembaca"</strong>.
+        </p>
+      </div>
+    <div class="row">
+        <div class="col">
+            <div class="text-center">
+                <img src="{{ url_for('static', filename='img/m.png') }}" width="150" height="150" alt="" class="rounded mb-3">
+                <h5 class="title">M. Fandi Arfabuma</h5>
+                <h6 class="subtitle mb-2 text-muted">Mahasiswa S1 Teknik Informatika</h6>
+            </div>
+        </div>
+        <div class="col">
+            <div class="text-center">
+                <img src="{{ url_for('static', filename='img/p1.png') }}" width="150" height="150" alt="" class="rounded mb-3">
+                <h5 class="title">Dr. Eng. Muhammad Ashar, S.T., M.T.</h5>
+                <h6 class="subtitle mb-2 text-muted">Dosen Pembimbing I</h6>
+            </div>
+        </div>
+        <div class="col">
+            <div class="text-center">
+                <img src="{{ url_for('static', filename='img/p2.png') }}" width="150" height="150" alt="" class="rounded mb-3">
+                <h5 class="title">Agusta Rakhmat Taufani, S.T., M.T.</h5>
+                <h6 class="subtitle mb-2 text-muted">Dosen Pembimbing II</h6>
+            </div>
+        </div>
+    </div>
+    <br>
+    <div class="text-center">
+        <img src="{{ url_for('static', filename='img/um.png') }}" class="mx-auto" alt="" width="200px">
+    </div>
+    
+</div>
+
+{% endblock %}
