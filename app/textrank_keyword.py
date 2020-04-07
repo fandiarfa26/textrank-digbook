@@ -3,6 +3,7 @@ import nltk
 import string
 import numpy as np
 from nltk import word_tokenize
+from nltk.tag import CRFTagger
 from operator import itemgetter
 from flair.models import SequenceTagger
 from flair.data import Sentence
@@ -10,7 +11,7 @@ from Sastrawi.Stemmer.StemmerFactory import StemmerFactory
 from Sastrawi.StopWordRemover.StopWordRemoverFactory import StopWordRemoverFactory
 
 def textrank(pos_tagged, top_n):
-    processed_text = [x.split("_")[0] for x in pos_tagged if "<NOUN>" in x or "<PROPN>" in x]
+    processed_text = [x.split("__")[0] for x in pos_tagged if "__NN" in x or "__NNP" in x]
     vocabulary = list(dict.fromkeys(processed_text))
     
     S = build_weighted_edge(processed_text, vocabulary)
@@ -79,11 +80,11 @@ def get_all_phrases(pos_tagged):
     stopwords = sw_factory.get_stop_words()
     
     phrases = []
-    someword = [pos_tagged[0].split('_')[0]]
+    someword = [pos_tagged[0].split('__')[0]]
     for i in range(1,len(pos_tagged)):
-        word = pos_tagged[i].split('_')[0]
-        tag = pos_tagged[i].split('_')[1]
-        prev_tag = pos_tagged[i-1].split('_')[1]
+        word = pos_tagged[i].split('__')[0]
+        tag = pos_tagged[i].split('__')[1]
+        prev_tag = pos_tagged[i-1].split('__')[1]
         if tag == prev_tag:
             someword.append(word)
         else:
@@ -96,16 +97,25 @@ def get_all_phrases(pos_tagged):
     
     same_removed = list(dict.fromkeys(stopword_removed))
     
-    non_propn_noun = [x.split("_")[0] for x in pos_tagged if "<NOUN>" not in x and "<PROPN>" not in x]
+    non_propn_noun = [x.split("__")[0] for x in pos_tagged if "__NN" not in x and "__NNP" not in x]
     all_phrases = [i for i in same_removed if i not in non_propn_noun]
 
     return all_phrases
 
 def pos_tagging(tokenized):
-    sentence = Sentence(" ".join(tokenized))
-    tag_pos = SequenceTagger.load('resources/taggers/example-universal-pos/best-model.pt')
-    tag_pos.predict(sentence)
-    result = sentence.to_tagged_string().replace(' <', '_<').split(" ")
+    # sentence = Sentence(" ".join(tokenized))
+    # tag_pos = SequenceTagger.load('resources/taggers/example-universal-pos/best-model.pt')
+    # tag_pos.predict(sentence)
+    # result = sentence.to_tagged_string().replace(' <', '_<').split(" ")
+    ct = CRFTagger()
+    ct.set_model_file('resources/taggers/all_indo_man_tag_corpus_model.crf.tagger')
+    tagged = ct.tag_sents([tokenized])
+
+    result = []
+    for a in tagged:
+        for i in a:
+            result.append('__'.join(i))
+
     return result
 
 

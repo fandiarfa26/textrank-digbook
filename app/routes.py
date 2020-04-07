@@ -4,6 +4,7 @@ from app import app
 from app.models import Book, Chapter, Summary
 from app.add_data import insert_book, insert_chapter
 from app.process import get_result
+from app.pos_tagging import pos_tagging
 
 @app.route('/')
 @app.route('/index')
@@ -55,3 +56,8 @@ def return_book(book, file):
 @app.route('/about')
 def about():
     return render_template('about.html')
+
+@app.route('/train-model')
+def train_model():
+    pos_tagging()
+    return 'Complete Train.'
