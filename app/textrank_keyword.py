@@ -5,8 +5,6 @@ import numpy as np
 from nltk import word_tokenize
 from nltk.tag import CRFTagger
 from operator import itemgetter
-from flair.models import SequenceTagger
-from flair.data import Sentence
 from Sastrawi.Stemmer.StemmerFactory import StemmerFactory
 from Sastrawi.StopWordRemover.StopWordRemoverFactory import StopWordRemoverFactory
 
@@ -103,10 +101,6 @@ def get_all_phrases(pos_tagged):
     return all_phrases
 
 def pos_tagging(tokenized):
-    # sentence = Sentence(" ".join(tokenized))
-    # tag_pos = SequenceTagger.load('resources/taggers/example-universal-pos/best-model.pt')
-    # tag_pos.predict(sentence)
-    # result = sentence.to_tagged_string().replace(' <', '_<').split(" ")
     ct = CRFTagger()
     ct.set_model_file('resources/taggers/all_indo_man_tag_corpus_model.crf.tagger')
     tagged = ct.tag_sents([tokenized])
