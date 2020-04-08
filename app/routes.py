@@ -11,7 +11,7 @@ def index():
     books = Book.query.all()
     return render_template('index.html', books=books)
 
-@app.route('/form')
+@app.route('/form-input')
 def form():
     books = Book.query.all()
     return render_template('form.html', books=books)
