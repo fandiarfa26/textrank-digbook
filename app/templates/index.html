@@ -4,14 +4,18 @@
 
 
 <div class="row mt-4">
-    <div class="col-sm-12 col-md-3">
+    <div class="col-sm-12 col-md-3" id="div-pre-btn">
         <figure>
-            <img id="image-cover" src="{{ url_for('static', filename='img/preview.png') }}" class="img-fluid preview-img" alt="">
+            <img id="image-cover" src="{{ url_for('static', filename='img/preview.png') }}"
+                class="img-fluid preview-img" alt="">
         </figure>
-        <button type="button" id="btnSummarize" onclick="whenSummarize()" class="btn btn-success btn-block" style="margin-top: 5px; display: none;" data-toggle="modal" data-target="#exampleModalCenter" data-backdrop="static" data-keyboard="false">Summarize</button>
-        
+        <button type="button" id="btnSummarize" onclick="whenSummarize()" class="btn btn-success btn-block mb-3"
+            style="margin-top: 5px; display: none;" data-toggle="modal" data-target="#exampleModalCenter"
+            data-backdrop="static" data-keyboard="false">Summarize</button>
+
         <!-- Modal -->
-        <div class="modal fade" id="exampleModalCenter" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+        <div class="modal fade" id="exampleModalCenter" tabindex="-1" role="dialog"
+            aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
             <div class="modal-dialog modal-dialog-centered" role="document">
                 <div class="modal-content">
                     <div class="modal-body">
@@ -20,7 +24,8 @@
                                 <img src="{{ url_for('static', filename='img/read5.gif') }}" class="img-fluid" alt="">
                                 <div>
                                     <strong>Summarizing...</strong>
-                                    <div class="spinner-border ml-auto spinner-border-sm" role="status" aria-hidden="true"></div>
+                                    <div class="spinner-border ml-auto spinner-border-sm" role="status"
+                                        aria-hidden="true"></div>
                                 </div>
                             </div>
                         </div>
@@ -30,23 +35,27 @@
         </div>
     </div>
     <div class="col-sm-12 col-md-9">
-        <h5 class="mb-4">Choose a book:</h5>
+        <h6 class="mb-3">Choose a book:</h6>
         <form id="formSummarize" action="{{ url_for('result') }}" method="POST">
-            
+
             <div class="accordion radio-toolbar" id="myaccordion">
                 {% for b in books %}
                 <div class="card book-card">
                     <div class="card-body">
                         <div class="card-content">
                             <div id="heading{{ b.id }}">
-                                <button type="button" class="btn btn-link" onclick="changeCover('{{ b.code }}')" data-toggle="collapse" data-target="#collapse{{ b.id }}" aria-expanded="false" aria-controls="collapse{{ b.id }}">
+                                <a href="#!" onclick="changeCover('{{ b.code }}')" data-toggle="collapse"
+                                    data-target="#collapse{{ b.id }}" aria-expanded="false"
+                                    aria-controls="collapse{{ b.id }}">
                                     {{ b.title }}
-                                </button>
+                                </a>
                             </div>
-                            <div id="collapse{{ b.id }}" class="collapse ml-3" aria-labelledby="heading{{ b.id }}" data-parent="#myaccordion">
+                            <div id="collapse{{ b.id }}" class="collapse mt-3 ml-3" aria-labelledby="heading{{ b.id }}"
+                                data-parent="#myaccordion">
                                 {% for ch in b.chapters %}
                                 <div>
-                                    <input type="radio" id="radio{{ ch.id }}" value="{{ ch.id }}" name="chapter" onclick="chooseChapter()">
+                                    <input type="radio" id="radio{{ ch.id }}" value="{{ ch.id }}" name="chapter"
+                                        onclick="chooseChapter()">
                                     <label for="radio{{ ch.id }}">
                                         {{ ch.title }}
                                         {% if ch.summaries|length > 0 %}
@@ -68,23 +77,24 @@
 </div>
 
 <script>
-
     function changeCover(code) {
-      $('#image-cover').attr('src','/uploads/cover_book/'+code+'.png');
-      return false;
+        $('#image-cover').attr('src', '/uploads/cover_book/' + code + '.png');
+        return false;
     }
 
     function chooseChapter() {
-      $('#btnSummarize').show();
-      return false;
+        $('#btnSummarize').show();
+        $([document.documentElement, document.body]).animate({
+            scrollTop: $("#header-content").offset().top
+        }, 500);
+        return false;
     }
 
     function whenSummarize() {
-      $('#btnSummarize').hide();
-      $('#formSummarize').submit();
-      return false
+        $('#btnSummarize').hide();
+        $('#formSummarize').submit();
+        return false
     }
-    
 </script>
 
 {% endblock %}
