@@ -194,6 +194,12 @@ nav.navbar a:hover {
   .sidebar {
     display:none;
   }
+
+  #loading-animation.img-fluid {
+    display: block;
+    width: 30%;
+    margin: 0 auto;
+  }
   
   nav.navbar {
     display: flex;

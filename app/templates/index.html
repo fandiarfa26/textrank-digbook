@@ -9,7 +9,7 @@
             <img id="image-cover" src="{{ url_for('static', filename='img/preview.png') }}"
                 class="img-fluid preview-img" alt="">
         </figure>
-        <button type="button" id="btnSummarize" onclick="whenSummarize()" class="btn btn-success btn-block mb-3"
+        <button type="button" id="btnSummarize" onclick="whenSummarize();" class="btn btn-success btn-block mb-3"
             style="margin-top: 5px; display: none;" data-toggle="modal" data-target="#exampleModalCenter"
             data-backdrop="static" data-keyboard="false">Summarize</button>
 
@@ -21,12 +21,10 @@
                     <div class="modal-body">
                         <div class="row">
                             <div class="col-sm-12 col-md-4 offset-md-4">
-                                <img src="{{ url_for('static', filename='img/read5.gif') }}" class="img-fluid" alt="">
-                                <div>
+                                <img id="loading-animation" src="{{ url_for('static', filename='img/read5.gif') }}" class="img-fluid" alt="">
+                                <p style="text-align: center">
                                     <strong>Summarizing...</strong>
-                                    <div class="spinner-border ml-auto spinner-border-sm" role="status"
-                                        aria-hidden="true"></div>
-                                </div>
+                                </p>
                             </div>
                         </div>
                     </div>
@@ -93,7 +91,7 @@
     function whenSummarize() {
         $('#btnSummarize').hide();
         $('#formSummarize').submit();
-        return false
+        return false;
     }
 </script>
 

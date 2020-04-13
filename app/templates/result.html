@@ -2,7 +2,16 @@
 
 {% block content %}
 
-<div class="container-fluid">
+<nav aria-label="breadcrumb">
+    <ol class="breadcrumb">
+        <li class="breadcrumb-item"><a href="{{ url_for('index') }}">Home</a></li>
+        <li class="breadcrumb-item"><a>Summarizing</a></li>
+        <li class="breadcrumb-item active" aria-current="page">Result</li>
+    </ol>
+</nav>
+
+<div>
+    
     <div class="row">
         <div class="col-sm-12">
             <div class="card">
@@ -36,8 +45,10 @@
                             {% for s in summary %}
                             <div class="card book-card">
                                 <div class="card-body">
-                                    <div class="card-content">
-                                        {{ s }}
+                                    <div class="card-content" style="text-align: justify;">
+                                        
+                                            {{ s }}
+                                        
                                     </div>
                                 </div>
                             </div>
